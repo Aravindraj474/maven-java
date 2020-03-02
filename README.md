@@ -1,0 +1,1 @@
+This project consists of basic java-cucumber-maven configuration
