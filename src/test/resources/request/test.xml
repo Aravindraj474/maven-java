@@ -1,0 +1,51 @@
+<contentstorerequest type="application/atom+xml" domain="services" method="POST"
+                     xmlns="http://services.lexisnexis.com/shared/xmlschema/searchrequest/2/">
+    <outputoptions>
+        <start>1</start>
+        <num>50</num>
+        <termlocationstart></termlocationstart>
+        <termlocationnum></termlocationnum>
+        <termlocationsegments></termlocationsegments>
+        <showfilt></showfilt>
+        <filtersonly></filtersonly>
+        <numfiltvals></numfiltvals>
+        <teasers/>
+        <hitsteasers></hitsteasers>
+        <signals>false</signals>
+        <filtersonly/>
+        <orderby/>
+        <sortfilt></sortfilt>
+    </outputoptions>
+    <searchoptions>
+        <answerrollup></answerrollup>
+        <hal/>
+        <retrievalendpoints/>
+        <snavdepth/>
+        <menus/>
+        <rsd/>
+        <threading/>
+        <debug>true</debug>
+
+        <testclient></testclient>
+        <testqp/>
+    </searchoptions>
+    <conditions>
+        <and>
+            <or>
+                <and>
+                    <query>
+                        <q id="originalsearch">dog bite</q>
+                        <qlang></qlang>
+                        <synonyms></synonyms>
+                        <dwim></dwim>
+                        <parsealgorithm/>
+                        <suggestcorrections></suggestcorrections>
+                        <suggestioncount></suggestioncount>
+                    </query>
+                </and>
+            </or>
+        </and>
+        <debug>true</debug>
+        <internaloptions>,ctsquery:true</internaloptions>
+    </conditions>
+</contentstorerequest>
