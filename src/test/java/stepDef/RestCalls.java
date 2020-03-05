@@ -6,7 +6,6 @@ import io.restassured.config.LogConfig;
 import io.restassured.config.RestAssuredConfig;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -28,7 +27,7 @@ import static io.restassured.RestAssured.given;
 
 public class RestCalls {
     RequestSpecification req;
-    private String outputPath = "target\restlogs";
+    private String outputPath = "target\\restlogs";
     private String outputFullPath;
     Response response = null;
 
@@ -72,9 +71,17 @@ public class RestCalls {
         return req.header(headerName, headerValue);
     }
 
-    public Response methodHit(String method, String resource) throws FileNotFoundException {
+    public Response methodHit(String method, String resource) throws IOException {
         File file = new File(outputFullPath);
-        PrintStream stream = new PrintStream(outputFullPath);
+        if (!file.exists()) {
+            if (!file.mkdirs()) {
+                throw new IOException("Failed to create directory for logs: " + outputPath);
+            }
+        } else if (!file.isDirectory()) {
+            throw new IOException("Non-directory file already exists for RestCall logs directory: " + outputPath);
+        }
+        PrintStream stream = new PrintStream(outputFullPath + File.separator +
+                "request-and-response.txt");
         logRequest(stream);
         response = getRequest().request(method, resource);
         logResponse(stream);
@@ -89,8 +96,7 @@ public class RestCalls {
                 replaceFirst("src-test-resources-features-", "");
         String name = scenario.getName().trim().toLowerCase().
                 replaceAll("\\s+", "-");
-        outputFullPath = outputPath + File.separator + feature + File.separator + name + featureId[1] + File.separator +
-                "request-and-response.txt";
+        outputFullPath = outputPath + File.separator + feature + File.separator + name + featureId[1];
     }
 
     private void logRequest(PrintStream stream) throws FileNotFoundException {

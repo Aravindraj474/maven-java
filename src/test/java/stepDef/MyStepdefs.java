@@ -54,7 +54,7 @@ public class MyStepdefs {
     }
 
     @When("^the \"(.*)\" method is hit on \"(.*)\"$")
-    public void theMethodIsHitOn(String method, String resource) throws FileNotFoundException {
+    public void theMethodIsHitOn(String method, String resource) throws IOException {
         calls.methodHit(method, resource);
     }
 
