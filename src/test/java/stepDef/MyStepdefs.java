@@ -24,11 +24,13 @@ import static io.restassured.RestAssured.given;
 public class MyStepdefs {
     private WebDriver driver;
     private RestCalls calls;
+    private prepareLogFiles prepareScenarioTitle = new prepareLogFiles();
     private Driver driverObject;
 
     @Before("@selenium")
-    public void loadSettings() throws IOException {
-        driverObject = new Driver();
+    public void loadSettings(Scenario scenario) throws IOException {
+        driverObject = new Driver(driver);
+        driverObject.logFiles(driver,prepareScenarioTitle.logFiles(scenario));
         this.driver = driverObject.createDriver();
     }
 
@@ -39,7 +41,7 @@ public class MyStepdefs {
 
     @Before("@rest")
     public void prepareLogs(Scenario scenario) {
-        calls.logFiles(scenario);
+        calls.logFiles(prepareScenarioTitle.logFiles(scenario));
     }
 
 
@@ -66,7 +68,7 @@ public class MyStepdefs {
 
     @And("^the page \"(.*)\" is opened$")
     public void thePageIsOpened(String url) throws Throwable {
-        google googleHome = new google();
+        google googleHome = new google(driver);
         googleHome.openUrl(url);
         driverObject.click(By.xpath("//*[@title=\"Search\"]"));
         driverObject.sendKeys(By.xpath("//*[@title=\"Search\"]"), "Success");

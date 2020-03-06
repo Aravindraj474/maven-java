@@ -89,14 +89,8 @@ public class RestCalls {
         return response;
     }
 
-    public void logFiles(Scenario scenario) {
-        String[] featureId = scenario.getId().split(".feature:");
-        String feature = featureId[0].trim().toLowerCase().
-                replaceAll("[^0-9a-z]+", "-").
-                replaceFirst("src-test-resources-features-", "");
-        String name = scenario.getName().trim().toLowerCase().
-                replaceAll("\\s+", "-");
-        outputFullPath = outputPath + File.separator + feature + File.separator + name + featureId[1];
+    public void logFiles(String scenarioTitle) {
+        outputFullPath = outputPath + scenarioTitle;
     }
 
     private void logRequest(PrintStream stream) throws FileNotFoundException {

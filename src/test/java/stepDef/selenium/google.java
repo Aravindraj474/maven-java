@@ -6,12 +6,12 @@ import java.io.IOException;
 
 public class google extends Driver {
 
-    public google() throws IOException {
-        super();
+    public google(WebDriver driver) throws IOException {
+        super(driver);
     }
 
     public WebDriver openUrl(String url) {
-        createDriver().get(url);
+        driver.get(url);
         return driver;
     }
 
